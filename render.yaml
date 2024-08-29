@@ -1,0 +1,32 @@
+databases:
+  - name: scraping-db
+    plan: free
+    region: singapore
+    databaseName: postgresql_hellophp_mwe8
+    user: postgresql_hellophp_mwe8_user
+
+services:
+  - type: web
+    name: scraping-web
+    runtime: docker
+    plan: free
+    region: singapore
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: TZ
+        value: Asia/Tokyo
+
+  - type: web
+    name: scraping-server
+    runtime: docker
+    plan: free
+    region: singapore
+    dockerfilePath: ./server/Dockerfile
+
+  - type: web
+    name: scraping-mailpit
+    runtime: image
+    plan: free
+    region: singapore
+    image:
+      url: docker.io/axllent/mailpit:latest
